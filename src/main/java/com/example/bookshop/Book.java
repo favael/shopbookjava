@@ -13,7 +13,6 @@ import javax.persistence.Id;
 @Entity
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Book {
 
@@ -21,6 +20,14 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long ISBN;
     private String title;
-    private BooksCategory booksCategory;
+    private String booksCategory;
     private double price;
+
+    public Book(long ISBN, String title, BooksCategory booksCategory, double price) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.booksCategory = booksCategory.getCategoryName();
+        this.price = price;
+    }
 }
+

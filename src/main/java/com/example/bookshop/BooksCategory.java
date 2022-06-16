@@ -8,9 +8,13 @@ public enum BooksCategory {
     ROMANCE("romansidlo"),
     DRAMA("dramat");
 
-    String categoryName;
+    private String categoryName;
 
     BooksCategory(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
     }
 }
