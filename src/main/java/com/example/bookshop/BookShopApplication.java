@@ -6,10 +6,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class BookShopApplication {
 
+	//1. Utworz klasse bazowa ksiazki
+
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(BookShopApplication.class, args);
 
-		System.out.println("lukasz");
 	}
-
 }
