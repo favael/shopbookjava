@@ -1,32 +1,39 @@
 package com.example.bookshop;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/shop")
 public class BookController {
 
-    private List<String> stringList = new ArrayList<>();
+//    private List<String> stringList = new ArrayList<>();
+    @Autowired
+    private final BookRepository bookRepository;
 
-
-    @GetMapping("/string")
-    public List<String> returnString() {
-        return stringList;
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    @PostMapping("/{put}")
-    public void putString(@PathVariable String put) {
-        stringList.add(put);
-        System.out.println(stringList);
+
+    @GetMapping("/books")
+    public List<Book> getBooks() {
+        return bookRepository.findAll();
     }
 
-    @DeleteMapping("/{toDelete}")
-    public void deleteString(@PathVariable String toDelete) {
-        System.out.println("Przed usunieciem: " + stringList);
-        stringList.remove(toDelete);
-        System.out.println("Po usunieciu: " + stringList);
+    @PostMapping
+    public Book addBook(@RequestBody Book book) {
+        bookRepository.save(book);
+        return book;
     }
+    @DeleteMapping("/{isbn}")
+    public Optional<Book> deleteBook(@PathVariable long isbn) {
+        Optional<Book> byId = bookRepository.findById(isbn);
+        bookRepository.deleteById(isbn);
+        return byId;
+    }
+
 }

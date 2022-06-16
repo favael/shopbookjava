@@ -2,7 +2,6 @@ package com.example.bookshop;
 //ad1
 
 
-
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -14,14 +13,19 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long ISBN;
+    private long isbn;
     private String title;
-    private BooksCategory booksCategory;
+    private String booksCategory;
     private double prize;
 
+    public Book(long isbn, String title, BooksCategory booksCategory, double prize) {
+        this.isbn = isbn;
+        this.title = title;
+        this.booksCategory = booksCategory.getCategoryName();
+        this.prize = prize;
+    }
 }
