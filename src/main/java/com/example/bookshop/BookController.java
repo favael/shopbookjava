@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController  //mowi springowi ze klasa bedzie ogarniala naszego resta
 @RequestMapping("/shop")
@@ -48,5 +49,15 @@ public class BookController {
         bookRepository.save(bookFromDB);
         return book;
     }
+
+
+    //wypisywanie po kategoriach
+    @GetMapping("/{category}")
+    public List<Book> findBookByCategory(@PathVariable String category){
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getBooksCategory().equals(category)).collect(Collectors.toList());
+
+    }
+
 
 }
