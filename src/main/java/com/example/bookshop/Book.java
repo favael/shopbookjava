@@ -20,12 +20,12 @@ public class Book {
     private long isbn;
     private String title;
     private String booksCategory;
-    private double prize;
+    private double price;
 
     public Book(long isbn, String title, BooksCategory booksCategory, double prize) {
         this.isbn = isbn;
         this.title = title;
         this.booksCategory = booksCategory.getCategoryName();
-        this.prize = prize;
+        this.price = prize;
     }
 }

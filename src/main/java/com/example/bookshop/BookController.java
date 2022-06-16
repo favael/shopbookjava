@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/shop")
@@ -18,10 +19,15 @@ public class BookController {
         this.bookRepository = bookRepository;
     }
 
-
     @GetMapping("/books")
     public List<Book> getBooks() {
         return bookRepository.findAll();
+    }
+
+    @GetMapping("/{category}")
+    public List<Book> findBookByCategory (@PathVariable String category){
+        return bookRepository.findAll().stream()
+                .filter(book -> book.getBooksCategory().equals(category)).collect(Collectors.toList());
     }
 
     @PostMapping
@@ -36,4 +42,13 @@ public class BookController {
         return byId;
     }
 
+    @PutMapping
+    public Book updateBook (@RequestBody Book book){
+        Book bookFromDB = bookRepository.getOne(book.getIsbn());
+        bookFromDB.setTitle(book.getTitle());
+        bookFromDB.setPrice(book.getPrice());
+        bookFromDB.setBooksCategory(book.getBooksCategory());
+        bookRepository.save(bookFromDB);
+        return book;
+    }
 }
