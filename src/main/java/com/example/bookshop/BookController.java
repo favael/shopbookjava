@@ -37,4 +37,16 @@ public class BookController {
         bookRepository.deleteById(isbn);
     }
 
+    //updatowanie
+    @PutMapping
+    public Book updateBook(@RequestBody Book book){
+        Book bookFromDB = bookRepository.getOne(book.getIsbn());
+        bookFromDB.setTitle((book.getTitle()));
+        bookFromDB.setBooksCategory(book.getBooksCategory());
+        bookFromDB.setPrice(book.getPrice());
+
+        bookRepository.save(bookFromDB);
+        return book;
+    }
+
 }
