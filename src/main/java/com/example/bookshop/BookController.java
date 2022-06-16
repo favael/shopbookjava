@@ -1,32 +1,40 @@
 package com.example.bookshop;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController  //mowi springowi ze klasa bedzie ogarniala naszego resta
-@RequestMapping("/books")
+@RequestMapping("/shop")
 public class BookController {
 
-    List<String> stringList = new ArrayList<>();  //póki co to jest nasza baza danych
+//    List<String> stringList = new ArrayList<>();  //póki co to jest nasza baza danych
 
-    @GetMapping ("/string")//aby spring wiedział że coś ma wyświetlać
-    public List<String> returnString(){
-        return stringList;
+    //wstrzykiwanie zawartości ->
+
+    @Autowired //info że wstrzykniete
+    private final BookRepository bookRepository;
+
+    public BookController(BookRepository bookRepository) {
+        this.bookRepository = bookRepository;
     }
 
-    @PostMapping("/{sample}")
-    public void postString(@PathVariable String sample){
-        stringList.add(sample);
-        System.out.println(stringList);
+    @GetMapping ("/books")//aby spring wiedział że coś ma wyświetlać
+    public List<Book> getBooks(){
+        return bookRepository.findAll();
     }
 
-    @DeleteMapping("/{toDelete}")
-    public void deleteString(@PathVariable String toDelete){
-        System.out.println("lista przed usunięciem: " + stringList);
-        stringList.remove(toDelete);
-        System.out.println("lista po usunięciu: " + stringList);
+    @PostMapping
+    public Book addBook(@RequestBody Book book){ //dla tej metody podajemy caly obiekt ksiazki
+        bookRepository.save(book);
+        return book;
+    }
+
+    @DeleteMapping("/{isbn}")
+    public void deleteBook(@PathVariable long isbn){
+        bookRepository.deleteById(isbn);
     }
 
 }

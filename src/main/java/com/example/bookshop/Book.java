@@ -14,15 +14,20 @@ import javax.persistence.Id;
 @Entity  // dla samego springa jest Entity
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long ISBN;
+    private long isbn;
     private String title;
-    private BooksCategory booksCategory;
+    private String booksCategory;
     private double price;
 
+    public Book(long isbn, String title, BooksCategory booksCategory, double price) {
+        this.isbn = isbn;
+        this.title = title;
+        this.booksCategory = booksCategory.getCatagoryName();
+        this.price = price;
+    }
 }

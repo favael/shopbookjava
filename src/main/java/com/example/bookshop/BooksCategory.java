@@ -9,11 +9,15 @@ public enum BooksCategory {
     ROMANS("romans"),
     DRAMA("dramat");
 
-    String catagoryName;
+    private String catagoryName;
     //aby kazdy obiekt wiedzial ze ma swoj opis dodajemy konstruktor
 
 
     BooksCategory(String catagoryName) {
         this.catagoryName = catagoryName;
+    }
+
+    public String getCatagoryName() {
+        return catagoryName;
     }
 }
