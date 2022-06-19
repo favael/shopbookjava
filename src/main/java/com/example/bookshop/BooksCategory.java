@@ -8,7 +8,9 @@ public enum BooksCategory {
     SCFI("scfi"),
     ROMANCE("romans"),
     FANTASY("fantastyka"),
-    DRAMA("dramat");
+    DRAMA("dramat"),
+    COMEDY("komedia");
+
 
 
     private String categoryName;

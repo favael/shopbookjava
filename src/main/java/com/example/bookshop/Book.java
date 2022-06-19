@@ -4,22 +4,25 @@ package com.example.bookshop;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "book")
+@Table(name = "books")
 @Setter
 @Getter
+@Data
 @NoArgsConstructor
 public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "isbn")
     private long isbn;
+    @Column(name = "title")
     private String title;
+    @Column(name = "booksCategory")
     private String booksCategory;
+    @Column(name = "price")
     private double price;
 
     public Book(long isbn, String title, BooksCategory booksCategory, double prize) {
